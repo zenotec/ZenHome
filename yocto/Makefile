@@ -2,7 +2,7 @@ MANIFEST_URL:="https://github.com/zenotec/repo.git"
 DEFAULT_BRANCH:=daisy
 
 CURRDIR:=$(shell pwd)
-SCRATCHDIR:="/scratch/$(USER)/ZenHome/yocto"
+SCRATCHDIR:=/scratch/$(USER)/ZenHome/yocto
 
 ifeq ($(TOPDIR),)
 TOPDIR:=$(shell pwd)
@@ -17,19 +17,20 @@ none:
 	$(ECHO) "################################################################################"
 	$(ECHO) "#"
 	$(ECHO) "# Please specify one of the following targets: "
-	$(ECHO) "#      all - Build all following targets"
-	$(ECHO) "#     BBBC - Beaglebone Black Rev C"
-	$(ECHO) "#      RPI - Raspberry Pi"
-	$(ECHO) "#       VM - Virtual Machine image (Virtualbox)"
+	$(ECHO) "#       all - Build all following targets"
+	$(ECHO) "#       BBBC - Beaglebone Black Rev C"
+	$(ECHO) "#        RPI - Raspberry Pi"
+	$(ECHO) "#         VM - Virtual Machine image (Virtualbox)"
+	$(ECHO) "# GarageCape - Beaglebone Black Garage Cape"
 	$(ECHO) "#"
 	$(ECHO) "################################################################################"
 
 ###############################################################################
 .PHONY: all
-all: BBBC RPI VM
+all: BBBC RPI VM GarageCape
 
 .PHONY: distclean-all
-distclean-all: distclean-BBBC distclean-RPI distclean-VM
+distclean-all: distclean-BBBC distclean-RPI distclean-VM distclean-GarageCape
 
 ###############################################################################
 .PHONY: BBBC
@@ -41,13 +42,13 @@ distclean-BBBC:
 	$(MAKE) MACHINE=beaglebone distclean-sub
 
 ###############################################################################
-.PHONY: VM
-VM:
-	$(MAKE) MACHINE=genericx86 TARGET=zeno-image all-sub
+.PHONY: GarageCape
+GarageCape:
+	$(MAKE) MACHINE=z-bbb TARGET=zeno-image all-sub
 
-.PHONY: distclean-VM
-distclean-VM:
-	$(MAKE) MACHINE=genericx86 distclean-sub
+.PHONY: distclean-GarageCape
+GarageCape-BBBC:
+	$(MAKE) MACHINE=z-bbb distclean-sub
 
 ###############################################################################
 .PHONY: RPI
@@ -57,6 +58,15 @@ RPI:
 .PHONY: distclean-RPI
 distclean-RPI:
 	$(MAKE) MACHINE=raspberrypi distclean-sub
+
+###############################################################################
+.PHONY: VM
+VM:
+	$(MAKE) MACHINE=genericx86 TARGET=zeno-image all-sub
+
+.PHONY: distclean-VM
+distclean-VM:
+	$(MAKE) MACHINE=genericx86 distclean-sub
 
 
 ###############################################################################

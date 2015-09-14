@@ -17,7 +17,7 @@ none:
 	$(ECHO) "################################################################################"
 	$(ECHO) "#"
 	$(ECHO) "# Please specify one of the following targets: "
-	$(ECHO) "#       all - Build all following targets"
+	$(ECHO) "#        all - Build all targets"
 	$(ECHO) "#       BBBC - Beaglebone Black Rev C"
 	$(ECHO) "#        RPI - Raspberry Pi"
 	$(ECHO) "#         VM - Virtual Machine image (Virtualbox)"
@@ -44,11 +44,11 @@ distclean-BBBC:
 ###############################################################################
 .PHONY: GarageCape
 GarageCape:
-	$(MAKE) MACHINE=z-bbb TARGET=zeno-image all-sub
+	$(MAKE) MACHINE=beaglebone TARGET=GarageCape-image all-sub
 
 .PHONY: distclean-GarageCape
-GarageCape-BBBC:
-	$(MAKE) MACHINE=z-bbb distclean-sub
+distclean-GarageCape:
+	$(MAKE) MACHINE=beagebone distclean-sub
 
 ###############################################################################
 .PHONY: RPI

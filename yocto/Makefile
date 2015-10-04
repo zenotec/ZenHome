@@ -22,15 +22,16 @@ none:
 	$(ECHO) "#        RPI - Raspberry Pi"
 	$(ECHO) "#         VM - Virtual Machine image (Virtualbox)"
 	$(ECHO) "# GarageCape - Beaglebone Black Garage Cape"
+	$(ECHO) "# ThermoCape - Beaglebone Black Thermostat Cape"
 	$(ECHO) "#"
 	$(ECHO) "################################################################################"
 
 ###############################################################################
 .PHONY: all
-all: BBBC RPI VM GarageCape
+all: BBBC RPI VM GarageCape ThermoCape
 
 .PHONY: distclean-all
-distclean-all: distclean-BBBC distclean-RPI distclean-VM distclean-GarageCape
+distclean-all: distclean-BBBC distclean-RPI distclean-VM distclean-GarageCape distclean-ThermoCape
 
 ###############################################################################
 .PHONY: BBBC
@@ -48,6 +49,15 @@ GarageCape:
 
 .PHONY: distclean-GarageCape
 distclean-GarageCape:
+	$(MAKE) MACHINE=beagebone distclean-sub
+
+###############################################################################
+.PHONY: ThermoCape
+ThermoCape:
+	$(MAKE) MACHINE=beaglebone TARGET=ThermoCape-image all-sub
+
+.PHONY: distclean-ThermoCape
+distclean-ThermoCape:
 	$(MAKE) MACHINE=beagebone distclean-sub
 
 ###############################################################################

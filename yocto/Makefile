@@ -47,18 +47,26 @@ distclean-BBBC:
 GarageCape:
 	$(MAKE) MACHINE=beaglebone TARGET=GarageCape-image all-sub
 
+.PHONY: install-GarageCape
+install-GarageCape:
+	$(MAKE) MACHINE=beaglebone TARGET=GarageCape-image install-sub
+
 .PHONY: distclean-GarageCape
 distclean-GarageCape:
-	$(MAKE) MACHINE=beagebone distclean-sub
+	$(MAKE) MACHINE=beaglebone distclean-sub
 
 ###############################################################################
 .PHONY: ThermoCape
 ThermoCape:
 	$(MAKE) MACHINE=beaglebone TARGET=ThermoCape-image all-sub
 
+.PHONY: install-ThermoCape
+install-ThermoCape:
+	$(MAKE) MACHINE=beaglebone TARGET=ThermoCape-image install-sub
+
 .PHONY: distclean-ThermoCape
 distclean-ThermoCape:
-	$(MAKE) MACHINE=beagebone distclean-sub
+	$(MAKE) MACHINE=beaglebone distclean-sub
 
 ###############################################################################
 .PHONY: RPI
@@ -87,6 +95,15 @@ all-sub: \
 	$(TOPDIR)/$(BRANCH)/sync.stamp \
 	$(TOPDIR)/$(BRANCH)/build-$(MACHINE)/config.stamp \
 	$(TOPDIR)/$(BRANCH)/build.stamp
+
+
+###############################################################################
+.PHONY: install-sub
+install-sub:
+	set -e; \
+		$(CD) $(TOPDIR)/$(BRANCH)/build-$(MACHINE); \
+		./install.sh $(MACHINE) $(TARGET)
+
 
 ###############################################################################
 .PHONY: distclean-sub

@@ -108,6 +108,7 @@ install-sub:
 ###############################################################################
 .PHONY: distclean-sub
 distclean-sub:
+	$(RM) -rf $(TOPDIR)/$(BRANCH)/sync.stamp
 	$(RM) -rf $(SCRATCHDIR)/$(BRANCH)/build-$(MACHINE)
 	$(RM) -rf $(TOPDIR)/$(BRANCH)/build-$(MACHINE)
 
@@ -128,7 +129,7 @@ $(TOPDIR)/$(BRANCH)/checkout.stamp:
 
 ###############################################################################
 $(TOPDIR)/$(BRANCH)/sync.stamp:
-	$(ECHO) "Checking out Yocto for: $(*)"
+	$(ECHO) "Syncing repositories for: $(*)"
 	set -e; \
 		$(CD) $(TOPDIR)/$(BRANCH); \
 		$(REPO) sync
